@@ -13,3 +13,9 @@
 - [x] La présentation est responsive sur ordinateurs, tablettes et téléphones.
 - [x] Le pied de page regroupe coordonnées, navigation secondaire, mentions légales et informations institutionnelles.
 - [x] Un dépôt Git est créé et le code du projet est versionné sur la branche principale.
+
+## Migration Next.js
+
+- [x] Le projet web est repris avec Next.js, React, TypeScript et l’App Router.
+- [x] Le build Next.js produit un export statique dans `out/`.
+- [x] L’interface existante est conservée dans une page React responsive avec navigation mobile.

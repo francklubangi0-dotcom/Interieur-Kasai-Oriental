@@ -1,12 +1,24 @@
 {
   "name": "nod.jc",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "private": true,
-  "description": "Portail institutionnel francophone nod.jc",
-  "type": "module",
+  "description": "Portail institutionnel francophone nod.jc construit avec Next.js",
+  "packageManager": "npm@10.9.9",
   "scripts": {
-    "dev": "node server.js",
-    "start": "node server.js",
-    "build": "node -e \"console.log('Static build ready: public/')\""
+    "dev": "next dev -p 3000",
+    "build": "next build",
+    "start": "next start -p 3000",
+    "lint": "tsc --noEmit"
+  },
+  "dependencies": {
+    "next": "latest",
+    "react": "latest",
+    "react-dom": "latest"
+  },
+  "devDependencies": {
+    "@types/node": "latest",
+    "@types/react": "latest",
+    "@types/react-dom": "latest",
+    "typescript": "latest"
   }
 }
