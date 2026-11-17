@@ -79,7 +79,14 @@ export default function HomePage() {
             <p>La santé ne peut plus être un luxe réservé à quelques-uns. La Couverture Santé Universelle est un impératif, un droit pour chaque Congolais. Notre engagement est clair : réformer notre système de santé pour qu’il réponde aux besoins de tous, sans distinction de revenu ou de statut social. Cela signifie investir dans nos infrastructures, former et déployer efficacement nos professionnels de santé, et garantir un accès équitable aux soins sur l’ensemble du territoire.</p>
             <blockquote>« Je prends l’engagement de continuer à œuvrer davantage pour le bien-être de la population congolaise selon sa vision de la Couverture Santé universelle. »</blockquote>
           </div>
-          <div className="minister-message__portrait"><img src="/images/roger.png" alt="Dr. Samuel Roger Kamba, Ministre" /></div>
+          <div className="minister-message__visual" aria-label="Composition graphique Couverture Santé Universelle">
+            <div className="minister-message__visual-top"><span>CSU / 01</span><span>MINISTÈRE DE LA SANTÉ</span></div>
+            <div className="minister-message__visual-orbit minister-message__visual-orbit--one" />
+            <div className="minister-message__visual-orbit minister-message__visual-orbit--two" />
+            <div className="minister-message__visual-cross">+</div>
+            <div className="minister-message__visual-title">La santé<br /><em>est la première<br />pierre.</em></div>
+            <div className="minister-message__visual-footer"><span>COUVERTURE SANTÉ<br />UNIVERSELLE</span><strong>N</strong></div>
+          </div>
         </section>
 
         <section id="ministere" className="intro-section page-shell"><div className="intro-copy"><span className="section-label">LE MINISTÈRE</span><h2>Une institution au service de la <strong>santé de tous.</strong></h2><p>Notre mission est de garantir à chaque citoyenne et chaque citoyen un accès équitable à des soins de qualité. À travers nos programmes et nos partenaires, nous coordonnons une action publique qui protège, soigne et accompagne.</p><a className="underlined-link" href="#programmes">Découvrir l’institution <Arrow /></a></div><div className="intro-badge"><span>nod</span><strong>.jc</strong><small>Informer · Agir · Protéger</small></div></section>

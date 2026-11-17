@@ -33,5 +33,5 @@
 ## Section ajoutée après le hero
 
 - [x] Le bloc « Le mot du ministre » apparaît juste sous la carte « Journée mondiale de la physiothérapie ».
-- [x] Le bloc reprend le nom, le titre, le message, la citation et le portrait fourni du ministre.
-- [x] La composition passe en une colonne sur mobile et conserve l’image, le texte et la citation lisibles.
+- [x] Le bloc reprend le nom, le titre, le message et la citation éditoriale du ministre.
+- [x] La composition passe en une colonne sur mobile et utilise un visuel graphique CSS original, sans capture importée.
