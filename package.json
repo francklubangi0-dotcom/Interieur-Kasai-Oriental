@@ -1,0 +1,12 @@
+{
+  "name": "nod.jc",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Portail institutionnel francophone nod.jc",
+  "type": "module",
+  "scripts": {
+    "dev": "node server.js",
+    "start": "node server.js",
+    "build": "node -e \"console.log('Static build ready: public/')\""
+  }
+}
