@@ -2,81 +2,91 @@
 
 import { useEffect, useState } from 'react';
 
-const quickLinks = [
-  ['01', '◌', 'Nos programmes', 'Voir les initiatives en cours', '#programmes'],
-  ['02', '▤', 'Documents publics', 'Accéder aux ressources', '#ressources'],
-  ['03', '⌁', 'Nous contacter', 'Trouver le bon interlocuteur', '#contact'],
-  ['04', '◒', 'Nos actualités', 'Les dernières informations', '#actualites'],
+const menuItems = [
+  ['ACCUEIL', '#accueil'],
+  ['LE MINISTÈRE', '#ministere'],
+  ['PROGRAMME', '#programmes'],
+  ['CSU', '#csu'],
+  ['ACTUALITÉS', '#actualites'],
+  ['MAGAZINE', '#magazine'],
+  ['DOCUMENTS', '#documents'],
+  ['ACCORD', '#accord'],
+  ['ÉPIDÉMIOLOGIE', '#epidemio'],
 ];
 
-const programs = [
-  ['02', 'Éducation citoyenne', 'Donner les clés pour comprendre et agir'],
-  ['03', 'Innovation publique', 'Imaginer des solutions à impact'],
-  ['04', 'Territoires en réseau', 'Relier les initiatives qui font avancer'],
+const institutions = [
+  ['INSP', 'Institut National de la Santé Publique', 'Structure scientifique et technique de référence.', 'blue'],
+  ['FPS', 'Fonds de Promotion de la Santé', 'Mécanisme de financement pour la santé.', 'green'],
+  ['FSS', 'Fonds de Solidarité de Santé', 'Un dispositif financier solidaire.', 'yellow'],
+  ['ARC-CSU', 'Autorité de Régulation de la CSU', 'Réguler et contrôler la couverture santé.', 'red'],
+  ['ANICNS', 'Agence Nationale de l’Ingénierie Clinique', 'Innovation et information de santé.', 'orange'],
+  ['ANAMED', 'Agence Nationale des Médicaments', 'Qualité et disponibilité des produits.', 'purple'],
 ];
 
-const resources = [
-  ['▤', 'Documents officiels', 'Guides, rapports et textes de référence'],
-  ['⌁', 'Répertoire des services', 'Les bons contacts au bon endroit'],
-  ['◉', 'Foire aux questions', 'Les réponses aux questions fréquentes'],
+const news = [
+  ['16/10/2026', 'ACTUALITÉ', 'Un seul plan, un seul budget, une seule coordination', 'Dans la riposte contre la 17ᵉ épidémie, l’organisation collective reste la première force.'],
+  ['07/10/2026', 'ACTUALITÉ', 'Renforcer la riposte dans les provinces affectées', 'Les équipes poursuivent la coordination et la sensibilisation au plus près des communautés.'],
+  ['06/10/2026', 'COMMUNIQUÉ', 'Consultation sur la mise en œuvre de l’assurance maladie', 'Les travaux d’information et de consultation se poursuivent avec les parties prenantes.'],
+  ['29/09/2026', 'INSTITUTION', 'Le ministre échange avec les acteurs de terrain', 'Un dialogue régulier pour faire remonter les besoins et accélérer les réponses.'],
 ];
 
-function Arrow() { return <span aria-hidden="true">↗</span>; }
-function Eyebrow({ children }: { children: React.ReactNode }) { return <p className="eyebrow"><span />{children}</p>; }
+const agenda = [
+  ['08 SEPTEMBRE 2027', 'Journée mondiale de la physiothérapie'],
+  ['10 SEPTEMBRE 2027', 'Journée mondiale de prévention du suicide'],
+  ['12 SEPTEMBRE 2027', 'Journée mondiale des premiers secours'],
+  ['21 SEPTEMBRE 2027', 'Journée mondiale de la maladie d’Alzheimer'],
+];
+
+function Arrow() { return <span aria-hidden="true">→</span>; }
+function Chevron() { return <span className="chevron" aria-hidden="true">⌄</span>; }
 
 export default function HomePage() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [year, setYear] = useState('2026');
 
-  useEffect(() => {
-    setYear(String(new Date().getFullYear()));
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('is-visible');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.12 });
-    document.querySelectorAll('.reveal').forEach((element) => observer.observe(element));
-    return () => observer.disconnect();
-  }, []);
-
-  const closeMenu = () => setMenuOpen(false);
+  useEffect(() => setYear(String(new Date().getFullYear())), []);
 
   return (
     <>
-      <a className="skip-link" href="#contenu">Aller au contenu</a>
-      <div className="announcement"><div className="shell announcement__inner"><span className="announcement__dot" /><p>Portail d’information publique · République démocratique du Congo</p><a href="#contact">Besoin d’aide ? <Arrow /></a></div></div>
-
-      <header className="site-header">
-        <div className="shell header__inner">
-          <a className="brand" href="#accueil" aria-label="nod.jc, accueil"><span className="brand__mark"><span>N</span></span><span className="brand__text"><strong>nod</strong><em>.jc</em><small>Portail institutionnel</small></span></a>
-          <button className="menu-toggle" type="button" aria-expanded={menuOpen} aria-controls="main-nav" onClick={() => setMenuOpen(!menuOpen)}><span className="sr-only">{menuOpen ? 'Fermer le menu' : 'Ouvrir le menu'}</span><span /><span /></button>
-          <nav id="main-nav" className={`main-nav ${menuOpen ? 'is-open' : ''}`} aria-label="Navigation principale">
-            {[['Accueil', '#accueil'], ['L’institution', '#institution'], ['Programmes', '#programmes'], ['Actualités', '#actualites'], ['Ressources', '#ressources']].map(([label, href], index) => <a key={label} className={index === 0 ? 'is-active' : ''} href={href} onClick={closeMenu}>{label}</a>)}
+      <header className="reference-header">
+        <div className="header-shell">
+          <a className="reference-logo" href="#accueil" aria-label="nod.jc, accueil"><span className="logo-symbol">N</span><span className="logo-copy"><strong>nod</strong><em>.jc</em><small>Portail institutionnel</small></span></a>
+          <button className="reference-menu-button" onClick={() => setMenuOpen(!menuOpen)} aria-expanded={menuOpen} aria-controls="reference-nav"><span className="sr-only">{menuOpen ? 'Fermer le menu' : 'Ouvrir le menu'}</span><i /><i /><i /></button>
+          <nav id="reference-nav" className={`reference-nav ${menuOpen ? 'is-open' : ''}`} aria-label="Menu principal">
+            {menuItems.map(([label, href], index) => <a key={label} className={index === 0 ? 'active' : ''} href={href} onClick={() => setMenuOpen(false)}>{label}{['LE MINISTÈRE', 'DOCUMENTS'].includes(label) && <Chevron />}</a>)}
           </nav>
-          <a className="header__contact" href="#contact">Nous contacter <Arrow /></a>
+          <a className="language-switch" href="#contact">FR <Chevron /></a>
         </div>
       </header>
 
-      <main id="contenu">
-        <section id="accueil" className="hero section-shell"><div className="hero__content reveal"><Eyebrow>Une information qui rapproche</Eyebrow><h1>Le service public, <em>plus proche</em> de vous.</h1><p className="hero__lead">Retrouvez les informations essentielles, les programmes en cours et les ressources publiques réunies dans un même espace.</p><div className="hero__actions"><a className="button button--primary" href="#actualites">Découvrir les actualités <Arrow /></a><a className="text-link" href="#institution">En savoir plus <span aria-hidden="true">→</span></a></div></div><div className="hero__visual reveal reveal--delay" role="img" aria-label="Illustration de la connexion entre citoyens et services publics"><div className="hero__halo hero__halo--one" /><div className="hero__halo hero__halo--two" /><div className="hero__card hero__card--main"><div className="hero__card-top"><span className="mini-logo">N</span><span>NOD.JC / 01</span></div><div className="hero__signal"><span /><span /><span /><span /><span /></div><strong>Une action<br /><em>qui compte.</em></strong><div className="hero__card-line" /></div><div className="hero__card hero__card--floating"><span className="floating-icon">✦</span><span>Informer.<br />Accompagner.</span></div><div className="hero__orbit hero__orbit--left" /><div className="hero__orbit hero__orbit--right" /></div></section>
+      <main>
+        <section id="accueil" className="reference-hero">
+          <div className="hero-background" />
+          <div className="hero-overlay" />
+          <div className="hero-shell">
+            <div className="hero-copy"><span className="hero-kicker">ACTUALITÉ / 16 OCTOBRE 2026</span><h1>Un seul plan,<br />un seul budget,<br /><strong>une seule coordination</strong></h1><p>Pour une action publique plus proche, plus lisible et plus efficace, nous faisons circuler l’information et les solutions au plus près des communautés.</p><a className="reference-button" href="#actualites">En savoir plus <Arrow /></a></div>
+            <button className="hero-arrow hero-arrow--left" aria-label="Slide précédent">‹</button><button className="hero-arrow hero-arrow--right" aria-label="Slide suivant">›</button>
+            <div className="hero-dots" aria-label="Navigation du diaporama"><span className="active" /><span /><span /><span /></div>
+          </div>
+          <a className="event-card" href="#agenda"><span>ÉVÉNEMENT / 8 SEPTEMBRE 2027</span><strong>Journée mondiale de la physiothérapie</strong><Arrow /></a>
+        </section>
 
-        <section className="quick-access" aria-labelledby="quick-title"><div className="shell"><div className="section-heading section-heading--compact"><div><Eyebrow>À portée de main</Eyebrow><h2 id="quick-title">Accès rapides</h2></div></div><div className="quick-grid">{quickLinks.map(([number, icon, title, description, href], index) => <a className={`quick-card ${index === 0 ? 'quick-card--accent' : ''}`} href={href} key={number}><span className="quick-card__number">{number}</span><span className="quick-card__icon">{icon}</span><strong>{title}</strong><small>{description} <b><Arrow /></b></small></a>)}</div></div></section>
+        <section id="ministere" className="intro-section page-shell"><div className="intro-copy"><span className="section-label">LE MINISTÈRE</span><h2>Une institution au service de la <strong>santé de tous.</strong></h2><p>Notre mission est de garantir à chaque citoyenne et chaque citoyen un accès équitable à des soins de qualité. À travers nos programmes et nos partenaires, nous coordonnons une action publique qui protège, soigne et accompagne.</p><a className="underlined-link" href="#programmes">Découvrir l’institution <Arrow /></a></div><div className="intro-badge"><span>nod</span><strong>.jc</strong><small>Informer · Agir · Protéger</small></div></section>
 
-        <section id="institution" className="institution section-shell"><div className="institution__label reveal"><span className="label-mark">N</span><span>Notre<br />mission</span></div><div className="institution__body reveal reveal--delay"><Eyebrow>L’institution</Eyebrow><h2>Rendre l’action publique <em>lisible, accessible et utile.</em></h2><p>nod.jc met en relation les institutions, les communautés et les citoyens. Nous facilitons l’accès à l’information et donnons de la visibilité aux actions qui améliorent le quotidien.</p><a className="text-link" href="#contact">Comprendre notre démarche <span aria-hidden="true">→</span></a></div><div className="institution__stats reveal reveal--delay-2">{[['24/7', 'Une information', 'toujours disponible'], ['04', 'Axes d’action', 'prioritaires'], ['01', 'Portail pour', 'tous les publics']].map(([stat, first, second]) => <div key={stat}><strong>{stat}</strong><span>{first}<br />{second}</span></div>)}</div></section>
+        <section id="csu" className="institution-section page-shell"><div className="section-topline"><div><span className="section-label">NOS INSTITUTIONS</span><h2>Des acteurs engagés<br /><strong>pour votre santé.</strong></h2></div><a className="underlined-link" href="#contact">Voir toutes les institutions <Arrow /></a></div><div className="institution-grid">{institutions.map(([short, title, description, color]) => <a className={`institution-card institution-card--${color}`} href="#contact" key={short}><span className="institution-card__mark">{short}</span><h3>{title}</h3><p>{description}</p><b><Arrow /></b></a>)}</div></section>
 
-        <section id="actualites" className="news section-shell"><div className="section-heading reveal"><div><Eyebrow>Le fil de l’action</Eyebrow><h2>À la une</h2></div><a className="text-link" href="#actualites">Toutes les actualités <span aria-hidden="true">→</span></a></div><div className="news-grid"><article className="news-feature reveal"><div className="news-feature__art"><span className="art-label">N / 2026</span><div className="art-shape art-shape--one" /><div className="art-shape art-shape--two" /><div className="art-shape art-shape--three" /><span className="art-caption">Agir ensemble<br /><em>pour demain</em></span></div><div className="news-feature__copy"><span className="tag">À la une</span><h3>Construire des services qui répondent aux réalités de chacun.</h3><p>Une nouvelle étape pour placer l’écoute, l’accès et la proximité au cœur de l’action publique.</p><a className="arrow-link" href="#contact">Lire l’article <Arrow /></a></div></article><div className="news-list reveal reveal--delay">{[['18.10.2026', 'Communiqué', 'Le portail évolue pour mieux vous accompagner.'], ['30.09.2026', 'Programme', 'Les territoires au centre de la prochaine initiative.'], ['12.09.2026', 'Ressource', 'Retrouvez les documents de référence de nod.jc.']].map(([date, tag, title]) => <article className="news-item" key={date}><time>{date}</time><div><span className="tag">{tag}</span><h3>{title}</h3><a href="#contact">Lire la suite <span aria-hidden="true">→</span></a></div></article>)}</div></div></section>
+        <section id="programmes" className="programme-band"><div className="page-shell programme-band__inner"><div><span className="section-label">COUVERTURE SANTÉ UNIVERSELLE</span><h2>La santé,<br /><strong>un droit pour tous.</strong></h2><p>Découvrez le programme national qui place l’accès aux soins au centre de l’action publique.</p><a className="reference-button reference-button--red" href="#contact">En savoir plus <Arrow /></a></div><div className="programme-visual"><span className="visual-circle visual-circle--one" /><span className="visual-circle visual-circle--two" /><span className="visual-cross">+</span><span className="visual-word">CSU</span></div></div></section>
 
-        <section id="programmes" className="programs section-shell"><div className="section-heading reveal"><div><Eyebrow>Des engagements concrets</Eyebrow><h2>Nos programmes</h2></div><a className="text-link" href="#contact">Voir tous les programmes <span aria-hidden="true">→</span></a></div><div className="programs__layout"><div className="program-intro reveal"><span className="program-intro__index">01 / 04</span><h3>Proximité<br /><em>et accès</em></h3><p>Faire circuler les informations utiles jusque dans les lieux où elles sont attendues.</p><a className="button button--dark" href="#contact">Découvrir le programme <Arrow /></a></div><div className="program-rows reveal reveal--delay">{programs.map(([number, title, description]) => <a href="#contact" className="program-row" key={number}><span>{number}</span><strong>{title}</strong><small>{description}</small><b><Arrow /></b></a>)}</div></div></section>
+        <section id="actualites" className="news-section page-shell"><div className="section-topline"><div><span className="section-label">À LA UNE</span><h2>Les dernières <strong>actualités.</strong></h2></div><a className="underlined-link" href="#actualites">Voir toutes les actualités <Arrow /></a></div><div className="news-layout"><article className="featured-news"><div className="featured-news__image"><span>nod.jc<br /><b>ACTU</b></span></div><div className="featured-news__body"><span className="news-meta">16/10/2026 · ACTUALITÉ</span><h3>Un seul plan, un seul budget, une seule coordination</h3><p>Dans la riposte contre l’épidémie, l’efficacité repose autant sur les moyens mobilisés que sur la manière de les organiser.</p><a className="underlined-link" href="#contact">Lire l’article <Arrow /></a></div></article><div className="news-list">{news.slice(1).map(([date, tag, title, excerpt]) => <article className="news-row" key={date}><time>{date}</time><div><span className="news-meta">{tag}</span><h3>{title}</h3><p>{excerpt}</p><a href="#contact">Lire l’article <Arrow /></a></div></article>)}</div></div></section>
 
-        <section id="ressources" className="resources section-shell"><div className="resources__intro reveal"><Eyebrow>À votre disposition</Eyebrow><h2>Ressources<br /><em>du portail</em></h2><p>Documents, repères et contacts : allez directement à l’information qui vous concerne.</p></div><div className="resources__links reveal reveal--delay">{resources.map(([icon, title, description]) => <a href="#contact" key={title}><span className="resource-icon">{icon}</span><span><strong>{title}</strong><small>{description}</small></span><b><Arrow /></b></a>)}</div></section>
+        <section id="magazine" className="magazine-section"><div className="page-shell magazine-inner"><div><span className="section-label">LE MAGAZINE</span><h2>Comprendre.<br /><strong>Partager. Agir.</strong></h2><p>Un regard approfondi sur les enjeux de santé publique et celles et ceux qui font bouger les lignes.</p><a className="reference-button" href="#contact">Lire le magazine <Arrow /></a></div><div className="magazine-cover"><span>MAGAZINE</span><strong>La santé<br /><em>en action</em></strong><small>ÉDITION 01 / 2026</small></div></div></section>
 
-        <section id="contact" className="contact section-shell"><div className="contact__inner reveal"><Eyebrow>Un lien direct</Eyebrow><h2>Une question ?<br /><em>Parlons-nous.</em></h2><p>Notre équipe vous oriente vers la bonne information et le bon interlocuteur.</p><a className="button button--lime" href="mailto:bonjour@nod.jc">Écrire à nod.jc <Arrow /></a></div><div className="contact__orb" aria-hidden="true"><span>↗</span></div></section>
+        <section id="agenda" className="agenda-section page-shell"><div className="section-topline"><div><span className="section-label">CALENDRIER</span><h2>Les rendez-vous<br /><strong>à venir.</strong></h2></div><a className="underlined-link" href="#contact">Voir le calendrier <Arrow /></a></div><div className="agenda-grid">{agenda.map(([date, title], index) => <a className={`agenda-card ${index === 0 ? 'is-featured' : ''}`} href="#contact" key={date}><span className="agenda-card__date">{date}</span><h3>{title}</h3><b><Arrow /></b></a>)}</div></section>
+
+        <section id="documents" className="quick-reference"><div className="page-shell quick-reference__inner"><div><span className="section-label">ACCÈS RAPIDE</span><h2>Tout ce dont<br /><strong>vous avez besoin.</strong></h2></div><div className="quick-reference__links"><a href="#contact">DOCUMENTS <Arrow /></a><a href="#contact">CSU <Arrow /></a><a href="#contact">INSTITUTIONS <Arrow /></a><a href="#contact">HÔPITAUX <Arrow /></a><a href="#contact">CONTACT <Arrow /></a></div></div></section>
       </main>
 
-      <footer className="site-footer"><div className="shell footer__top"><div className="footer__brand"><a className="brand brand--footer" href="#accueil"><span className="brand__mark"><span>N</span></span><span className="brand__text"><strong>nod</strong><em>.jc</em><small>Portail institutionnel</small></span></a><p>Une information publique<br />claire et accessible.</p></div><div className="footer__col"><h3>Explorer</h3><a href="#institution">L’institution</a><a href="#programmes">Programmes</a><a href="#actualites">Actualités</a><a href="#ressources">Ressources</a></div><div className="footer__col"><h3>Liens utiles</h3><a href="#contact">Documents</a><a href="#contact">Services publics</a><a href="#contact">Partenaires</a><a href="#contact">Presse</a></div><div className="footer__col footer__col--contact"><h3>Nous trouver</h3><p>30, avenue de la Justice<br />Kinshasa / Gombe<br />République démocratique du Congo</p><a href="mailto:bonjour@nod.jc">bonjour@nod.jc</a></div></div><div className="shell footer__bottom"><span>© {year} nod.jc · Tous droits réservés</span><div><a href="#contact">Mentions légales</a><a href="#contact">Politique de confidentialité</a><span className="footer__language">FR <span aria-hidden="true">⌄</span></span></div></div></footer>
+      <footer id="contact" className="reference-footer"><div className="page-shell footer-main"><div className="footer-identity"><a className="reference-logo reference-logo--footer" href="#accueil"><span className="logo-symbol">N</span><span className="logo-copy"><strong>nod</strong><em>.jc</em><small>Portail institutionnel</small></span></a><p>Une information publique<br />claire et accessible.</p><address>Kinshasa / Gombe<br />République démocratique du Congo</address></div><div className="footer-column"><h3>Accès rapide</h3><a href="#documents">Documents</a><a href="#csu">CSU</a><a href="#ministere">Institutions</a><a href="#contact">Hôpitaux</a><a href="#contact">Contact</a></div><div className="footer-column"><h3>Liens utiles</h3><a href="#contact">FSS</a><a href="#contact">INSP</a><a href="#contact">CNSU</a><a href="#contact">ANICNS</a><a href="https://www.who.int/fr">OMS</a></div><div className="footer-column"><h3>Sites institutionnels</h3><a href="#contact">Présidence</a><a href="#contact">Assemblée nationale</a><a href="#contact">Le Sénat</a><a href="#contact">Primature</a><a href="#contact">Cours et tribunaux</a></div></div><div className="page-shell footer-bottom"><span>Tous droits réservés © {year} nod.jc</span><span>Photo hero : Africa CDC · <a href="#contact">Mentions légales</a> · <a href="#contact">Confidentialité</a></span></div></footer>
     </>
   );
 }

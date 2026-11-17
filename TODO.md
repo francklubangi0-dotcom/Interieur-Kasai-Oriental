@@ -19,3 +19,13 @@
 - [x] Le projet web est repris avec Next.js, React, TypeScript et l’App Router.
 - [x] Le build Next.js produit un export statique dans `out/`.
 - [x] L’interface existante est conservée dans une page React responsive avec navigation mobile.
+
+## Reprise du modèle institutionnel
+
+- [x] Le menu horizontal reprend les rubriques institutionnelles en capitales, les chevrons de sous-menu et le sélecteur de langue.
+- [x] Le hero utilise une image large, un voile sombre, un titre éditorial, un bouton d’action, des flèches et des indicateurs de diaporama.
+- [x] Une carte d’événement chevauche le bas du hero comme sur le modèle.
+- [x] Les couleurs vert institutionnel, rouge éditorial, jaune, bleu doux, blanc et footer anthracite structurent la page.
+- [x] La typographie combine Montserrat pour les titres et Roboto pour le texte courant.
+- [x] La page comprend des blocs institutions, couverture santé, actualités, magazine, calendrier et accès rapide.
+- [x] Le footer reprend les colonnes Accès rapide, Liens utiles et Sites institutionnels.
