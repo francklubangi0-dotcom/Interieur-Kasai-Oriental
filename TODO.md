@@ -29,3 +29,9 @@
 - [x] La typographie combine Montserrat pour les titres et Roboto pour le texte courant.
 - [x] La page comprend des blocs institutions, couverture santé, actualités, magazine, calendrier et accès rapide.
 - [x] Le footer reprend les colonnes Accès rapide, Liens utiles et Sites institutionnels.
+
+## Section ajoutée après le hero
+
+- [x] Le bloc « Le mot du ministre » apparaît juste sous la carte « Journée mondiale de la physiothérapie ».
+- [x] Le bloc reprend le nom, le titre, le message, la citation et le portrait fourni du ministre.
+- [x] La composition passe en une colonne sur mobile et conserve l’image, le texte et la citation lisibles.
