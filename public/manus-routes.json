@@ -1,5 +1,11 @@
 {
   "routes": [
-    { "path": "/", "title": "Accueil — nod.jc" }
+    { "path": "/", "title": "Accueil — Ministère de l’Intérieur du Kasaï-Oriental" },
+    { "path": "/ministre", "title": "Le Ministre" },
+    { "path": "/cabinet", "title": "Le Cabinet" },
+    { "path": "/missions", "title": "Nos missions" },
+    { "path": "/contact", "title": "Contact" },
+    { "path": "/recherche", "title": "Recherche" },
+    { "path": "/signaler", "title": "Signaler une préoccupation" }
   ]
 }
