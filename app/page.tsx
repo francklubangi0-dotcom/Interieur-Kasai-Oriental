@@ -2,24 +2,20 @@ import Image from 'next/image';
 import SiteFooter from './components/SiteFooter';
 import SiteHeader from './components/SiteHeader';
 import HomeHero from './components/HomeHero';
+import HomeNewsSection from './components/HomeNewsSection';
+import ProvinceExplorer from './components/ProvinceExplorer';
+import ScrollReveal from './components/ScrollReveal';
 import logo from '../images/RIJEC DESIGN (11).png';
-import heroImage from '../images/MIN.jpeg';
 import ministerPhoto from '../images/Patrick Min.jpeg';
+import { getPublishedNews } from './data/news';
 
-const institutions = [
-  ['INSP', 'Institut National de la Santé Publique', 'Structure scientifique et technique de référence.', 'blue'],
-  ['FPS', 'Fonds de Promotion de la Santé', 'Mécanisme de financement pour la santé.', 'green'],
-  ['FSS', 'Fonds de Solidarité de Santé', 'Un dispositif financier solidaire.', 'yellow'],
-  ['ARC-CSU', 'Autorité de Régulation de la CSU', 'Réguler et contrôler la couverture santé.', 'red'],
-  ['ANICNS', 'Agence Nationale de l’Ingénierie Clinique', 'Innovation et information de santé.', 'orange'],
-  ['ANAMED', 'Agence Nationale des Médicaments', 'Qualité et disponibilité des produits.', 'purple'],
-];
-
-const news = [
-  ['16/10/2026', 'ACTUALITÉ', 'Un seul plan, un seul budget, une seule coordination', 'Dans la riposte contre la 17ᵉ épidémie, l’organisation collective reste la première force.'],
-  ['07/10/2026', 'ACTUALITÉ', 'Consultations et identification des conflits coutumiers dans la chefferie de Bakwa Kalonji', 'La séance est présidée par le gouverneur de province.'],
-  ['06/10/2026', 'COMMUNIQUÉ', 'Consultation sur la mise en œuvre de l’assurance maladie', 'Les travaux d’information et de consultation se poursuivent avec les parties prenantes.'],
-  ['29/09/2026', 'INSTITUTION', 'Le ministre échange avec les acteurs de terrain', 'Un dialogue régulier pour faire remonter les besoins et accélérer les réponses.'],
+const publicServices = [
+  { mark: '01', title: 'Signaler une situation urgente', description: 'Uniquement pour transmettre une information nécessitant l’attention des autorités.', color: 'red', href: '/signaler' },
+  { mark: '02', title: 'Demander une information administrative', description: 'Pour une demande d’information concernant une procédure, un service, un texte officiel ou une orientation administrative.', color: 'blue', href: '/contact' },
+  { mark: '03', title: 'Demander une audience', description: 'Envoyez votre demande au Ministère et conservez son numéro de suivi.', color: 'green', href: '/services-publics/demander-audience' },
+  { mark: '04', title: 'Signaler une rumeur', description: 'Transmettez les informations susceptibles de provoquer la panique ou de troubler la paix sociale.', color: 'yellow', href: '/signaler' },
+  { mark: '05', title: 'Contacter un service territorial', description: 'Prenez contact avec votre territoire.', color: 'orange', href: '/contact' },
+  { mark: '06', title: 'Télécharger un formulaire', description: 'Retrouvez les formulaires et documents utiles à vos démarches administratives.', color: 'purple', href: '/#publications' },
 ];
 
 const agenda = [
@@ -29,12 +25,73 @@ const agenda = [
   ['21 SEPTEMBRE 2027', 'Journée mondiale de la maladie d’Alzheimer'],
 ];
 
+const priorities = [
+  {
+    icon: 'security',
+    title: 'Sécurité et ordre public',
+    description: 'Contribuer à la prévention de l’insécurité, à la coordination des acteurs compétents et à la protection des personnes et des biens, dans le respect des lois et des droits fondamentaux.',
+  },
+  {
+    icon: 'territory',
+    title: 'Administration territoriale',
+    description: 'Renforcer la présence de l’État dans les territoires, communes, secteurs, chefferies et groupements, et améliorer la circulation de l’information administrative.',
+  },
+  {
+    icon: 'decentralization',
+    title: 'Décentralisation',
+    description: 'Accompagner les entités territoriales décentralisées dans la mise en œuvre de leurs responsabilités, de leur gouvernance et de leur développement local.',
+  },
+  {
+    icon: 'peace',
+    title: 'Paix et affaires coutumières',
+    description: 'Prévenir les conflits coutumiers, favoriser le dialogue et valoriser le rôle des autorités coutumières dans la cohésion sociale et le développement.',
+  },
+  {
+    icon: 'dialogue',
+    title: 'Dialogue institutionnel',
+    description: 'Assurer une relation régulière, respectueuse et documentée avec l’Assemblée provinciale, les autres provinces et les institutions nationales.',
+  },
+  {
+    icon: 'digital',
+    title: 'Transformation numérique',
+    description: 'Utiliser les technologies de l’information et de la communication pour moderniser l’administration, faciliter l’accès à l’information et rapprocher les services publics des citoyens.',
+  },
+] as const;
+
+type PriorityIconName = (typeof priorities)[number]['icon'];
+
+const priorityIconPaths: Record<PriorityIconName, string[]> = {
+  security: ['M12 3 19 6v5c0 4.7-2.8 8-7 10-4.2-2-7-5.3-7-10V6l7-3Z', 'm9 12 2 2 4-4'],
+  territory: ['M3 6 9 3l6 3 6-3v15l-6 3-6-3-6 3V6Z', 'M9 3v15', 'M15 6v15'],
+  decentralization: ['M12 7v5', 'm6 18 6-6 6 6'],
+  peace: ['M4 5h16v11H9l-5 4V5Z', 'M8 9h8', 'M8 12h5'],
+  dialogue: ['M3 21h18', 'M5 21V8l7-4 7 4v13', 'M9 21v-8h6v8', 'M8 9h.01', 'M12 9h.01', 'M16 9h.01'],
+  digital: ['M3 4h18v13H3z', 'M8 21h8', 'M12 17v4', 'M8 9h2l2-2 2 4 2-2h1'],
+};
+
+function PriorityIcon({ name }: { name: PriorityIconName }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      {priorityIconPaths[name].map((path) => (
+        <path key={path} d={path} />
+      ))}
+      {name === 'decentralization' && (
+        <>
+          <circle cx="12" cy="5" r="2" />
+          <circle cx="5" cy="19" r="2" />
+          <circle cx="19" cy="19" r="2" />
+        </>
+      )}
+    </svg>
+  );
+}
+
 function Arrow() { return <span aria-hidden="true">→</span>; }
 
 export default function HomePage() {
   return (
     <>
-      <SiteHeader />
+      <SiteHeader showUrgentTicker />
 
       <main>
         <HomeHero />
@@ -46,9 +103,31 @@ export default function HomePage() {
             <p className="minister-message__role">Ministre</p>
             <p>La sécurité et la protection des citoyens ne peuvent être réservées à quelques-uns. Elles sont un droit pour chaque habitant du Kasaï Oriental et une responsabilité essentielle des pouvoirs publics. Notre engagement est clair : renforcer l’action du ministère de l’Intérieur afin de répondre aux besoins de toute la population, sans distinction. Cela signifie consolider les services de proximité, améliorer la coordination avec les autorités locales et les services de sécurité, et promouvoir la paix, la cohésion sociale et la protection des personnes sur l’ensemble de la province.</p>
             <blockquote>« Je prends l’engagement de poursuivre et d’intensifier mes efforts au service du bien-être de la population du Kasaï Oriental, en contribuant au maintien de la paix, à la sécurité de proximité et à la cohésion sociale, conformément aux missions du ministère de l’Intérieur. »</blockquote>
+            <a className="reference-button minister-message__button" href="/message-ministre">Lire le message complet <Arrow /></a>
           </div>
           <div className="minister-message__visual">
             <Image src={ministerPhoto} alt="Le ministre Patrick Mukendi Makanda échange avec des habitants" fill sizes="(max-width: 800px) 100vw, 50vw" className="minister-message__image" />
+          </div>
+        </section>
+
+        <section id="priorities" className="priorities-section" aria-labelledby="priorities-title">
+          <div className="page-shell">
+            <ScrollReveal className="priorities-reveal">
+              <header className="priorities-heading">
+                <span className="section-label">LE RÔLE DU MINISTÈRE</span>
+                <h2 id="priorities-title">Nos priorités</h2>
+                <p>Les engagements qui guident l’action du Ministère au service de la population du Kasaï-Oriental.</p>
+              </header>
+              <div className="priorities-grid">
+                {priorities.map((priority) => (
+                  <article className="priority-card" key={priority.title}>
+                    <span className="priority-card__icon"><PriorityIcon name={priority.icon} /></span>
+                    <h3>{priority.title}</h3>
+                    <p>{priority.description}</p>
+                  </article>
+                ))}
+              </div>
+            </ScrollReveal>
           </div>
         </section>
 
@@ -57,7 +136,7 @@ export default function HomePage() {
             <span className="section-label">LE MINISTÈRE</span>
             <h2>Une institution au service de la <strong className="intro-copy__highlight">sécurité de tous.</strong></h2>
             <p>Notre mission est de contribuer à la paix, à la sécurité et à la cohésion sociale dans toute la province du Kasaï Oriental. En coordonnant l’action des autorités locales et des services concernés, nous œuvrons à la protection des citoyens et au maintien de l’ordre public, dans le respect des droits de chacun.</p>
-            <a className="underlined-link" href="#programmes">Découvrir l’institution <Arrow /></a>
+            <a className="underlined-link" href="#explorer-province">Découvrir la province <Arrow /></a>
           </div>
           <div className="intro-badge"><Image src={logo} alt="Ministère de l’Intérieur du Kasaï-Oriental" className="intro-badge__logo" /><small>Informer · Agir · Protéger</small></div>
         </section>
@@ -81,40 +160,13 @@ export default function HomePage() {
           <a className="report-alert__button" href="/signaler">Signaler une préoccupation <Arrow /></a>
         </aside>
 
-        <section id="services" className="institution-section page-shell"><div className="section-topline"><div><span className="section-label">SERVICES AU PUBLIC</span><h2>Des services essentiels<br /><strong>à votre disposition.</strong></h2></div><a className="underlined-link" href="#contact">Voir tous les services <Arrow /></a></div><div className="institution-grid">{institutions.map(([short, title, description, color]) => <a className={`institution-card institution-card--${color}`} href="#contact" key={short}><span className="institution-card__mark">{short}</span><h3>{title}</h3><p>{description}</p><b><Arrow /></b></a>)}</div></section>
+        <section id="services" className="institution-section page-shell"><div className="section-topline"><div><span className="section-label">SERVICES AU PUBLIC</span><h2>Des services essentiels<br /><strong>à votre disposition.</strong></h2></div><a className="underlined-link" href="/contact">Contacter le Ministère <Arrow /></a></div><div className="institution-grid">{publicServices.map((service) => <a className={`institution-card institution-card--${service.color}`} href={service.href} key={service.mark}><span className="institution-card__mark">{service.mark}</span><h3>{service.title}</h3><p>{service.description}</p><b><Arrow /></b></a>)}</div></section>
 
-        <section id="programmes" className="programme-band"><div className="page-shell programme-band__inner"><div><span className="section-label">COUVERTURE SANTÉ UNIVERSELLE</span><h2>La santé,<br /><strong>un droit pour tous.</strong></h2><p>Découvrez le programme national qui place l’accès aux soins au centre de l’action publique.</p><a className="reference-button reference-button--red" href="#contact">En savoir plus <Arrow /></a></div><div className="programme-visual"><span className="visual-circle visual-circle--one" /><span className="visual-circle visual-circle--two" /><span className="visual-cross">+</span><span className="visual-word">CSU</span></div></div></section>
+        <ScrollReveal className="province-reveal">
+          <ProvinceExplorer />
+        </ScrollReveal>
 
-        <section id="actualites" className="news-section page-shell">
-          <div className="section-topline">
-            <div><span className="section-label">À LA UNE</span><h2>Les dernières <strong>actualités.</strong></h2></div>
-            <a className="underlined-link" href="#actualites">Voir toutes les actualités <Arrow /></a>
-          </div>
-          <div className="news-layout">
-            <article className="featured-news" id="actualite-20-10-2026">
-              <div className="featured-news__image"><Image src={heroImage} alt="Le ministre provincial de l’Intérieur assure l’intérim du gouverneur" className="featured-news__photo" /></div>
-              <div className="featured-news__body">
-                <span className="news-meta">20/10/2026 · ACTUALITÉ</span>
-                <h3>Le ministre provincial de l’Intérieur assure l’intérim du gouverneur</h3>
-                <p>En l&apos;absence du gouverneur et du vice-gouverneur, Me Patrick Mukendi Makanda est appelé à assurer l&apos;intérim à la tête de la province du Kasaï Oriental.</p>
-                <a className="underlined-link" href="#contact">Lire l’article <Arrow /></a>
-              </div>
-            </article>
-            <div className="news-list">
-              {news.slice(1).map(([date, tag, title, excerpt]) => (
-                <article className="news-row" id={`actualite-${date.replace(/\//g, '-')}`} key={date}>
-                  <time>{date}</time>
-                  <div>
-                    <span className="news-meta">{tag}</span>
-                    <h3>{title}</h3>
-                    <p>{excerpt}</p>
-                    <a href="#contact">Lire l’article <Arrow /></a>
-                  </div>
-                </article>
-              ))}
-            </div>
-          </div>
-        </section>
+        <HomeNewsSection initialItems={getPublishedNews()} />
 
         <section id="publications" className="magazine-section"><div className="page-shell magazine-inner"><div><span className="section-label">PUBLICATIONS</span><h2>Informations.<br /><strong>Rapports. Documents.</strong></h2><p>Consultez les publications institutionnelles du Ministère de l’Intérieur du Kasaï-Oriental et les documents utiles à la population.</p><a className="reference-button" href="#contact">Voir les publications <Arrow /></a></div><div className="magazine-cover"><span>PUBLICATION</span><strong>Action<br /><em>publique</em></strong><small>ÉDITION 2026</small></div></div></section>
 

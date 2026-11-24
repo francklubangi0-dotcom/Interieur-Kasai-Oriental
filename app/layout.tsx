@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import ScrollPositionRestoration from './components/ScrollPositionRestoration';
 import logo from '../images/RIJEC DESIGN (11).png';
 import './globals.css';
 
@@ -11,7 +12,10 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="fr" data-scroll-behavior="smooth">
-      <body>{children}</body>
+      <body>
+        {children}
+        <ScrollPositionRestoration />
+      </body>
     </html>
   );
 }

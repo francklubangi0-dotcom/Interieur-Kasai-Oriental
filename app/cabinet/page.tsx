@@ -1,12 +1,14 @@
+import Image from 'next/image';
+import communicationPhoto from '../../images/FK.jpg';
 import SiteFooter from '../components/SiteFooter';
 import SiteHeader from '../components/SiteHeader';
 
-const cabinetRoles = [
-  'Directeur du Cabinet',
-  'Directeur du Cabinet Adjoint',
-  'Conseiller',
-  'Conseiller',
-  'Conseiller',
+const cabinetMembers = [
+  { name: 'Nom à compléter', role: 'Directeur du Cabinet', photo: null },
+  { name: 'Nom à compléter', role: 'Directeur du Cabinet Adjoint', photo: null },
+  { name: 'Franck KAYOMBO', role: 'Chargé de Communications', photo: communicationPhoto },
+  { name: 'Nom à compléter', role: 'Conseiller', photo: null },
+  { name: 'Nom à compléter', role: 'Conseiller', photo: null },
 ];
 
 export default function CabinetPage() {
@@ -20,12 +22,18 @@ export default function CabinetPage() {
             <h1>Membres du Cabinet du Ministère de l’Intérieur du Kasaï Oriental</h1>
           </header>
           <div className="cabinet-grid">
-            {cabinetRoles.map((role, index) => (
+            {cabinetMembers.map(({ name, role, photo }, index) => (
               <article className="cabinet-card" key={`${role}-${index}`}>
-                <div className="cabinet-card__photo" role="img" aria-label={`Emplacement de la photo du membre du cabinet, ${role}`}>
-                  <span>PHOTO À AJOUTER</span>
+                <div
+                  className="cabinet-card__photo"
+                  role={photo ? undefined : 'img'}
+                  aria-label={photo ? undefined : `Emplacement de la photo du membre du cabinet, ${role}`}
+                >
+                  {photo
+                    ? <Image src={photo} alt={`Portrait de ${name}`} fill sizes="(max-width: 800px) 50vw, 33vw" />
+                    : <span>PHOTO À AJOUTER</span>}
                 </div>
-                <h2>Nom à compléter</h2>
+                <h2>{name}</h2>
                 <p>{role}</p>
               </article>
             ))}

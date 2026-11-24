@@ -11,6 +11,8 @@ const pages = [
   { path: '/cabinet', title: 'Le Cabinet' },
   { path: '/contact', title: 'Contact' },
   { path: '/signaler', title: 'Signaler une préoccupation' },
+  { path: '/avis-urgents', title: 'Avis urgents' },
+  { path: '/message-ministre', title: 'Message du Ministre' },
 ];
 
 type SearchResult = {

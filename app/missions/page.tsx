@@ -27,7 +27,7 @@ export default function MissionsPage() {
       <main className="missions-page">
         <section className="page-shell">
           <span className="section-label">LE MINISTÈRE</span>
-          <h1>Nos missions</h1>
+          <h1>Nos Missions et Attributions</h1>
           <p className="missions-page__intro">Le Ministère de l’Intérieur du Kasaï-Oriental veille à la bonne administration de la province, à la sécurité des personnes et des biens, au maintien de la paix, à la promotion de la décentralisation et à l’encadrement des autorités coutumières. Il contribue au renforcement de l’autorité de l’État, à la prévention des conflits et à l’amélioration de la gouvernance locale au service de la population.</p>
           <div className="missions-grid">
             {missions.map((mission, index) => (

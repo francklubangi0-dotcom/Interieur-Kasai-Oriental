@@ -27,7 +27,7 @@ export default function ContactPage() {
       <SiteHeader activeItem="CONTACT" />
       <main className="contact-page">
         <div className="page-shell contact-page__inner">
-          <Link className="contact-page__back" href="/">← Retour à l&apos;accueil</Link>
+          <Link className="contact-page__back page-back-link" href="/">← Retour à l&apos;accueil</Link>
           <span className="section-label">NOUS CONTACTER</span>
           <h1>Contact</h1>
           <p>Le Ministère de l&apos;Intérieur du Kasaï-Oriental reste à votre disposition.</p>
