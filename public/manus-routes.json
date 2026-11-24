@@ -1,9 +1,19 @@
 {
   "routes": [
     { "path": "/", "title": "Accueil — Ministère de l’Intérieur du Kasaï-Oriental" },
+    { "path": "/actualites", "title": "Actualités" },
+    { "path": "/actualites/article", "title": "Article" },
+    { "path": "/avis-urgents", "title": "Avis urgents" },
+    { "path": "/admin", "title": "Administration" },
     { "path": "/ministre", "title": "Le Ministre" },
+    { "path": "/message-ministre", "title": "Message du Ministre" },
     { "path": "/cabinet", "title": "Le Cabinet" },
     { "path": "/missions", "title": "Nos missions" },
+    { "path": "/entites-territoriales", "title": "Entités territoriales" },
+    { "path": "/entites-territoriales/:slug", "title": "Entité territoriale" },
+    { "path": "/services-publics", "title": "Services publics" },
+    { "path": "/services-publics/demander-audience", "title": "Demander une audience" },
+    { "path": "/services-publics/suivi-audience", "title": "Suivi d’une audience" },
     { "path": "/contact", "title": "Contact" },
     { "path": "/recherche", "title": "Recherche" },
     { "path": "/signaler", "title": "Signaler une préoccupation" }
