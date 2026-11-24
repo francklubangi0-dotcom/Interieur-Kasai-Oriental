@@ -35,3 +35,11 @@
 - [x] Le bloc « Le mot du ministre » apparaît juste sous la carte « Journée mondiale de la physiothérapie ».
 - [x] Le bloc reprend le nom, le titre, le message et la citation éditoriale du ministre.
 - [x] La composition passe en une colonne sur mobile et utilise un visuel graphique CSS original, sans capture importée.
+
+## Améliorations de l’expérience d’accueil
+
+- [x] Les liens « Lire l’article » et les appels à l’action du hero ouvrent une page dédiée à chaque actualité.
+- [x] Les trois informations du hero défilent automatiquement avec transition douce, indicateurs et navigation manuelle conservés.
+- [x] Les sous-menus apparaissent au survol et au focus, avec un chevron de taille fixe qui ne se décale pas.
+- [x] Le menu desktop est légèrement agrandi tout en conservant une navigation mobile responsive.
+- [x] La photo du « Mot du ministre » reçoit une animation d’entrée en zoom arrière respectueuse de `prefers-reduced-motion`.

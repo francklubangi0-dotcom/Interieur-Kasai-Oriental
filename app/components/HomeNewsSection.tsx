@@ -20,7 +20,7 @@ function Arrow() {
 }
 
 function articleHref(item: NewsItem) {
-  return `/actualites/article/?slug=${encodeURIComponent(item.slug ?? item.id)}`;
+  return `/actualites/article/${encodeURIComponent(item.slug ?? item.id)}`;
 }
 
 export default function HomeNewsSection({ initialItems }: { initialItems: NewsItem[] }) {
