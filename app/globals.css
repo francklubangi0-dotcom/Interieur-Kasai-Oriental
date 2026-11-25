@@ -1662,7 +1662,6 @@ html{scroll-padding-top:132px}
   .reference-nav .nav-dropdown__chevron{transition:none}
 }
 
-<<<<<<< HEAD
 /* Ajustements de l'accueil et des démarches citoyennes. */
 .reference-hero{
   height:auto;
@@ -1810,9 +1809,7 @@ html{scroll-padding-top:132px}
   .province-detail{padding:24px}
   .province-explorer__directory{align-items:flex-start;flex-direction:column}
 }
-=======
 @keyframes hero-image-in{from{opacity:0;transform:scale(1.035)}to{opacity:1;transform:scale(1)}}
 @keyframes minister-photo-in{from{opacity:0;transform:scale(1.12)}to{opacity:1;transform:scale(1)}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.hero-background,.minister-message__image{animation:none}.reference-button,.institution-card,.agenda-card{transition:none}}
 @media(max-width:800px){.reference-hero{height:610px;min-height:calc(100svh - 74px)}}
->>>>>>> e5c8d171e28f6bd26f7302f436ddb690c53324b5
