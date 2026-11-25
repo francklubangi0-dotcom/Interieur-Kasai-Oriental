@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import heroImage from '../../images/MIN.jpeg';
 import consultationImage from '../../images/GOUV.jpeg';
 import governorMeetingImage from '../../images/GOUV1.jpeg';
@@ -34,6 +34,20 @@ export default function HomeHero() {
   const activeIndex = Math.min(activeStory, Math.max(stories.length - 1, 0));
   const story = stories[activeIndex];
 
+  useEffect(() => {
+    setActiveStory((current) => Math.min(current, Math.max(stories.length - 1, 0)));
+  }, [stories.length]);
+
+  useEffect(() => {
+    if (stories.length < 2) return undefined;
+
+    const timer = window.setInterval(() => {
+      setActiveStory((current) => (current + 1) % stories.length);
+    }, 7000);
+
+    return () => window.clearInterval(timer);
+  }, [stories.length]);
+
   if (!story) {
     return (
       <section id="accueil" className="reference-hero">
@@ -63,14 +77,14 @@ export default function HomeHero() {
 
   return (
     <section id="accueil" className="reference-hero">
-      <div className="hero-background" style={{ backgroundImage: `url("${storyImage}")` }} />
+      <div className="hero-background" key={story.id} style={{ backgroundImage: `url("${storyImage}")` }} />
       <div className="hero-overlay" />
       <div className="hero-shell">
         <div className="hero-copy" key={story.id} aria-live="polite">
           <span className="hero-kicker">{story.category} / {formatNewsDate(story.date)}</span>
           <h1>{story.title}</h1>
           <p>{story.excerpt}</p>
-          <a className="reference-button" href={`/actualites/article/?slug=${encodeURIComponent(story.slug ?? story.id)}`}>En savoir plus <Arrow /></a>
+          <a className="reference-button" href={`/actualites/article/${encodeURIComponent(story.slug ?? story.id)}`}>En savoir plus <Arrow /></a>
         </div>
         {error && <span className="sr-only" role="status">{error}</span>}
         <button className="hero-arrow hero-arrow--left" onClick={showPreviousStory} aria-label="Actualité précédente">‹</button>

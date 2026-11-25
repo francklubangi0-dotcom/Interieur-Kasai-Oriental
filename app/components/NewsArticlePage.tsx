@@ -16,14 +16,14 @@ const storyImages: Record<string, typeof minImage> = {
   '06-10-2026': consultationImage,
 };
 
-export default function NewsArticlePage({ initialItems }: { initialItems: NewsItem[] }) {
+export default function NewsArticlePage({ initialItems, initialSlug }: { initialItems: NewsItem[]; initialSlug?: string }) {
   const [article, setArticle] = useState<NewsItem | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     let active = true;
-    const requestedSlug = new URLSearchParams(window.location.search).get('slug') ?? '';
+    const requestedSlug = initialSlug ?? new URLSearchParams(window.location.search).get('slug') ?? '';
     const hasCmsClient = getSupabaseClient() !== null;
 
     const refresh = async () => {
@@ -52,7 +52,7 @@ export default function NewsArticlePage({ initialItems }: { initialItems: NewsIt
       active = false;
       unsubscribe();
     };
-  }, [initialItems]);
+  }, [initialItems, initialSlug]);
 
   const image = article?.imageUrl
     ?? (article ? storyImages[article.slug ?? article.id] : undefined)
