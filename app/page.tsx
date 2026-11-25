@@ -19,10 +19,10 @@ const publicServices = [
 ];
 
 const agenda = [
-  ['08 SEPTEMBRE 2027', 'Journée mondiale de la physiothérapie'],
-  ['10 SEPTEMBRE 2027', 'Journée mondiale de prévention du suicide'],
-  ['12 SEPTEMBRE 2027', 'Journée mondiale des premiers secours'],
-  ['21 SEPTEMBRE 2027', 'Journée mondiale de la maladie d’Alzheimer'],
+  { date: '18 FÉVRIER 2027', isoDate: '2027-02-18', title: 'Concertation sur la sécurité de proximité' },
+  { date: '12 MARS 2027', isoDate: '2027-03-12', title: 'Sensibilisation à la sécurité routière' },
+  { date: '18 JUIN 2027', isoDate: '2027-06-18', title: 'Échanges avec les autorités territoriales' },
+  { date: '21 SEPTEMBRE 2027', isoDate: '2027-09-21', title: 'Dialogue pour la cohésion sociale' },
 ];
 
 const priorities = [
@@ -105,14 +105,14 @@ export default function HomePage() {
             <blockquote>« Je prends l’engagement de poursuivre et d’intensifier mes efforts au service du bien-être de la population du Kasaï Oriental, en contribuant au maintien de la paix, à la sécurité de proximité et à la cohésion sociale, conformément aux missions du ministère de l’Intérieur. »</blockquote>
             <a className="reference-button minister-message__button" href="/message-ministre">Lire le message complet <Arrow /></a>
           </div>
-          <div className="minister-message__visual">
+          <ScrollReveal className="minister-message__visual" waitForIntersection>
             <Image src={ministerPhoto} alt="Le ministre Patrick Mukendi Makanda échange avec des habitants" fill sizes="(max-width: 800px) 100vw, 50vw" className="minister-message__image" />
-          </div>
+          </ScrollReveal>
         </section>
 
         <section id="priorities" className="priorities-section" aria-labelledby="priorities-title">
           <div className="page-shell">
-            <ScrollReveal className="priorities-reveal">
+            <ScrollReveal className="priorities-reveal" waitForIntersection>
               <header className="priorities-heading">
                 <span className="section-label">LE RÔLE DU MINISTÈRE</span>
                 <h2 id="priorities-title">Nos priorités</h2>
@@ -160,6 +160,75 @@ export default function HomePage() {
           <a className="report-alert__button" href="/signaler">Signaler une préoccupation <Arrow /></a>
         </aside>
 
+        <section className="citizen-awareness" aria-labelledby="citizen-awareness-title">
+          <div className="page-shell">
+            <header className="citizen-awareness__heading">
+              <div>
+                <span className="section-label">PRÉVENTION &amp; CITOYENNETÉ</span>
+                <h2 id="citizen-awareness-title">Ensemble, cultivons les bons réflexes.</h2>
+              </div>
+              <p>Sur la route, en ligne ou dans nos quartiers, chaque geste compte pour un Kasaï Oriental plus sûr.</p>
+            </header>
+            <div className="awareness-grid">
+              <article className="awareness-card awareness-card--road">
+                <div className="awareness-card__visual awareness-card__visual--road">
+                  <span className="awareness-card__tag">01 / SÉCURITÉ ROUTIÈRE</span>
+                  <svg viewBox="0 0 360 180" fill="none" aria-hidden="true">
+                    <circle cx="185" cy="90" r="72" fill="#F8DB7A" />
+                    <path d="M0 148h360v32H0z" fill="#123E59" />
+                    <path d="M74 152h28l-8 12H66zm50 0h28l-8 12h-28zm50 0h28l-8 12h-28zm50 0h28l-8 12h-28z" fill="#fff" />
+                    <path d="M209 128h84l-8-27-15-13h-35l-15 13z" fill="#fff" stroke="#123E59" strokeWidth="4" strokeLinejoin="round" />
+                    <path d="M231 102h45l-10-10h-25z" fill="#A4D7DC" />
+                    <circle cx="229" cy="129" r="8" fill="#123E59" /><circle cx="276" cy="129" r="8" fill="#123E59" />
+                    <circle cx="147" cy="72" r="9" fill="#123E59" />
+                    <path d="m145 85-11 20 17 10 5 18m-12-47 15 13 13 2m-23 13-15 19" stroke="#123E59" strokeWidth="7" strokeLinecap="round" strokeLinejoin="round" />
+                    <path d="M55 141V70m-17 0h34L55 43z" stroke="#123E59" strokeWidth="4" strokeLinejoin="round" fill="#fff" />
+                  </svg>
+                </div>
+                <div className="awareness-card__body">
+                  <h3>Sur la route, ralentissons.</h3>
+                  <p>La prudence protège tous les usagers, en particulier les enfants et les piétons.</p>
+                  <ul><li>Respectez la signalisation et les limitations.</li><li>Ralentissez près des écoles et des marchés.</li><li>À moto, portez un casque adapté.</li></ul>
+                </div>
+              </article>
+              <article className="awareness-card awareness-card--digital">
+                <div className="awareness-card__visual awareness-card__visual--digital">
+                  <span className="awareness-card__tag">02 / VIGILANCE NUMÉRIQUE</span>
+                  <svg viewBox="0 0 360 180" fill="none" aria-hidden="true">
+                    <circle cx="183" cy="93" r="75" fill="#18506D" />
+                    <rect x="113" y="24" width="93" height="136" rx="14" fill="#fff" stroke="#A8D9D4" strokeWidth="4" />
+                    <path d="M139 38h41M147 145h25" stroke="#123E59" strokeWidth="4" strokeLinecap="round" />
+                    <rect x="129" y="63" width="61" height="49" rx="6" fill="#E5F4F1" />
+                    <path d="M140 78h38M140 89h24M140 100h30" stroke="#79A9A6" strokeWidth="4" strokeLinecap="round" />
+                    <path d="m221 66 44 14v27c0 26-18 40-44 50-26-10-44-24-44-50V80z" fill="#F6D36D" stroke="#fff" strokeWidth="3" strokeLinejoin="round" />
+                    <rect x="205" y="99" width="32" height="25" rx="4" fill="#123E59" />
+                    <path d="M211 99v-7a10 10 0 0 1 20 0v7" stroke="#123E59" strokeWidth="5" />
+                    <circle cx="221" cy="110" r="3" fill="#fff" />
+                  </svg>
+                </div>
+                <div className="awareness-card__body">
+                  <h3>Face aux fraudes, vérifions.</h3>
+                  <p>Un message alarmant ou une demande de paiement inhabituelle doit éveiller la vigilance.</p>
+                  <ul><li>Ne partagez jamais vos codes ou mots de passe.</li><li>Vérifiez l’identité de votre interlocuteur par un canal officiel.</li><li>Ne payez pas sous la pression d’un message suspect.</li></ul>
+                </div>
+              </article>
+              <article className="awareness-peace">
+                <Image src={ministerPhoto} alt="Échange entre le ministre et des membres de la communauté" fill sizes="(max-width: 800px) 100vw, 35vw" className="awareness-peace__photo" />
+                <div className="awareness-peace__content">
+                  <span className="awareness-card__tag">03 / VIVRE-ENSEMBLE</span>
+                  <span className="awareness-peace__mark" aria-hidden="true">“</span>
+                  <h3>La paix se construit chaque jour, par le dialogue et le respect.</h3>
+                  <p>Face à un différend, privilégions l’écoute et rapprochons-nous des autorités compétentes.</p>
+                </div>
+              </article>
+            </div>
+            <div className="awareness-footer">
+              <p><strong>Un doute, une préoccupation ?</strong> Ne relayez pas une information non vérifiée.</p>
+              <a href="/signaler">Signaler une préoccupation <Arrow /></a>
+            </div>
+          </div>
+        </section>
+
         <section id="services" className="institution-section page-shell"><div className="section-topline"><div><span className="section-label">SERVICES AU PUBLIC</span><h2>Des services essentiels<br /><strong>à votre disposition.</strong></h2></div><a className="underlined-link" href="/contact">Contacter le Ministère <Arrow /></a></div><div className="institution-grid">{publicServices.map((service) => <a className={`institution-card institution-card--${service.color}`} href={service.href} key={service.mark}><span className="institution-card__mark">{service.mark}</span><h3>{service.title}</h3><p>{service.description}</p><b><Arrow /></b></a>)}</div></section>
 
         <ScrollReveal className="province-reveal">
@@ -170,7 +239,21 @@ export default function HomePage() {
 
         <section id="publications" className="magazine-section"><div className="page-shell magazine-inner"><div><span className="section-label">PUBLICATIONS</span><h2>Informations.<br /><strong>Rapports. Documents.</strong></h2><p>Consultez les publications institutionnelles du Ministère de l’Intérieur du Kasaï-Oriental et les documents utiles à la population.</p><a className="reference-button" href="#contact">Voir les publications <Arrow /></a></div><div className="magazine-cover"><span>PUBLICATION</span><strong>Action<br /><em>publique</em></strong><small>ÉDITION 2026</small></div></div></section>
 
-        <section id="agenda" className="agenda-section page-shell"><div className="section-topline"><div><span className="section-label">CALENDRIER</span><h2>Les rendez-vous<br /><strong>à venir.</strong></h2></div><a className="underlined-link" href="#contact">Voir le calendrier <Arrow /></a></div><div className="agenda-grid">{agenda.map(([date, title], index) => <a className={`agenda-card ${index === 0 ? 'is-featured' : ''}`} href="#contact" key={date}><span className="agenda-card__date">{date}</span><h3>{title}</h3><b><Arrow /></b></a>)}</div></section>
+        <section id="agenda" className="agenda-section page-shell" aria-labelledby="agenda-title">
+          <div className="section-topline">
+            <div>
+              <span className="section-label">CALENDRIER</span>
+              <h2 id="agenda-title">Les rendez-vous<br /><strong>en perspective.</strong></h2>
+              <p className="agenda-note">Pistes d’activités indicatives : dates et organisation à confirmer. Ce calendrier n’annonce pas d’événements officiels.</p>
+            </div>
+            <a className="underlined-link" href="/contact">Contacter le Ministère <Arrow /></a>
+          </div>
+          <div className="agenda-grid">{agenda.map(({ date, isoDate, title }, index) => (
+            <article className={`agenda-card ${index === 0 ? 'is-featured' : ''}`} key={date}>
+              <span className="agenda-card__date"><time dateTime={isoDate}>{date}</time> · À CONFIRMER</span><h3>{title}</h3>
+            </article>
+          ))}</div>
+        </section>
 
       </main>
 

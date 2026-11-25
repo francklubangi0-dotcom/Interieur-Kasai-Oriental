@@ -57,16 +57,17 @@ export default function AudienceRequestForm() {
 
   return (
     <section className="audience-form-card" aria-label="Formulaire de demande d’audience">
-      {!supabase ? (
+      {!supabase && (
         <p className="audience-form__error" role="alert">
-          Le service de dépôt n’est pas encore configuré. Veuillez réessayer ultérieurement.
+          Le dépôt en ligne n’est pas encore disponible. <Link href="/contact">Contactez le Ministère</Link> pour vous renseigner.
         </p>
-      ) : (
-        <form onSubmit={submit}>
+      )}
+      <form onSubmit={submit}>
+        <fieldset disabled={!supabase} className="audience-form__fields">
           <div className="audience-form-grid">
             <label>
               Nom complet
-              <input name="name" autoComplete="name" maxLength={120} required />
+              <input name="name" autoComplete="name" minLength={2} maxLength={120} required />
             </label>
             <label>
               Adresse courriel <span aria-hidden="true">(facultatif)</span>
@@ -74,12 +75,12 @@ export default function AudienceRequestForm() {
             </label>
             <label className="audience-form-grid__wide">
               Téléphone <span aria-hidden="true">(facultatif)</span>
-              <input name="phone" type="tel" autoComplete="tel" maxLength={30} aria-describedby="audience-contact-hint" />
+              <input name="phone" type="tel" autoComplete="tel" minLength={6} maxLength={30} aria-describedby="audience-contact-hint" />
               <span className="audience-form__hint" id="audience-contact-hint">Au moins une adresse courriel ou un numéro de téléphone est requis.</span>
             </label>
             <label className="audience-form-grid__wide">
               Objet de la demande
-              <input name="subject" maxLength={160} required />
+              <input name="subject" minLength={5} maxLength={160} required />
             </label>
             <label className="audience-form-grid__wide">
               Message
@@ -103,8 +104,8 @@ export default function AudienceRequestForm() {
               {saving ? 'Envoi en cours…' : 'Envoyer la demande'}
             </button>
           </div>
-        </form>
-      )}
+        </fieldset>
+      </form>
     </section>
   );
 }

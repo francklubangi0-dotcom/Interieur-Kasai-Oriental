@@ -37,9 +37,9 @@ export default function ProvinceExplorer() {
       <div className="page-shell province-explorer__inner">
         <header className="province-explorer__heading">
           <div>
-            <span className="section-label">COUVERTURE ADMINISTRATIVE</span>
-            <h2 id="province-title">Explorer le <strong>Kasaï Oriental.</strong></h2>
-            <p>Une vue d’ensemble de la province, de ses entités et de son organisation territoriale.</p>
+            <span className="section-label">LA PROVINCE EN UN REGARD</span>
+            <h2 id="province-title">À la découverte du <strong>Kasaï Oriental.</strong></h2>
+            <p>De Mbuji-Mayi aux cinq territoires, découvrez les entités qui composent notre province et accédez à leurs fiches administratives.</p>
           </div>
           <span className="province-explorer__seal" aria-hidden="true">
             <svg viewBox="0 0 32 32" fill="none">
@@ -47,7 +47,7 @@ export default function ProvinceExplorer() {
               <path d="M12 5v18.5M20 8.5V27" />
               <circle cx="16" cy="16" r="2" />
             </svg>
-            <span>PROVINCE<br />DU KASAÏ ORIENTAL</span>
+            <span>UNE PROVINCE<br />SIX ENTITÉS À EXPLORER</span>
           </span>
         </header>
 
@@ -65,10 +65,23 @@ export default function ProvinceExplorer() {
           <div className="province-map-card">
             <div className="province-map-card__heading">
               <div>
-                <span className="province-map-card__eyebrow">CARTE INTERACTIVE</span>
-                <h3>Sélectionnez une entité</h3>
+                <span className="province-map-card__eyebrow">CARTE INTERACTIVE · LIMITES INDICATIVES</span>
+                <h3>Choisissez une ville ou un territoire</h3>
               </div>
               <span className="province-map-card__north" aria-label="Nord">N ↑</span>
+            </div>
+            <div className="province-zone-picker" role="group" aria-label="Choisir une entité territoriale">
+              {zones.map((zone) => (
+                <button
+                  type="button"
+                  key={zone.id}
+                  className={zone.id === activeId ? 'is-selected' : ''}
+                  aria-pressed={zone.id === activeId}
+                  onClick={() => setActiveId(zone.id)}
+                >
+                  {zone.name.replace(/^(Ville|Territoire) de /, '')}
+                </button>
+              ))}
             </div>
             <div className="province-map-scroll">
               <svg className="province-map" viewBox="0 0 520 450" role="group" aria-label="Carte indicative et interactive des six entités du Kasaï Oriental">
@@ -110,12 +123,12 @@ export default function ProvinceExplorer() {
             <div className="province-map-card__legend">
               <span><i /> Territoire</span>
               <span><i className="is-city" /> Ville</span>
-              <span className="province-map-card__hint">Survolez ou sélectionnez une zone</span>
+              <span className="province-map-card__hint">Sélectionnez une zone ou utilisez les boutons</span>
             </div>
           </div>
 
           <aside className="province-detail" aria-live="polite" aria-atomic="true">
-            <span className="province-detail__index">FICHE DE L’ENTITÉ</span>
+            <span className="province-detail__index">À LA DÉCOUVERTE DE L’ENTITÉ</span>
             <span className="province-detail__type">{activeZone.type}</span>
             <h3>{activeZone.name}</h3>
             <div className="province-detail__rule" />
@@ -163,6 +176,10 @@ export default function ProvinceExplorer() {
           </aside>
         </div>
 
+        <div className="province-explorer__directory">
+          <p>Pour une vue complète de l’organisation territoriale et des informations disponibles.</p>
+          <a href="/entites-territoriales">Voir toutes les entités <span aria-hidden="true">→</span></a>
+        </div>
         <p className="province-explorer__source">
           La liste des cinq territoires est présentée par le <a href="https://interieur.gouv.cd/ministere/territoires" target="_blank" rel="noreferrer">Ministère de l’Intérieur</a> ; Mbuji-Mayi compte cinq communes selon les listes consultées, à confirmer par registre officiel. Le total provincial des communes et les nombres de secteurs, chefferies et commissariats restent à confirmer. Contours 2019 : <a href="https://www.geoboundaries.org/" target="_blank" rel="noreferrer">OCHA / Référentiel Géographique Commun, via geoBoundaries</a> (CC BY 3.0 IGO). Les limites, répertoires et contacts sont indicatifs.
         </p>

@@ -5,9 +5,11 @@ import { useEffect, useRef } from 'react';
 export default function ScrollReveal({
   children,
   className,
+  waitForIntersection = false,
 }: {
   children: React.ReactNode;
   className: string;
+  waitForIntersection?: boolean;
 }) {
   const elementRef = useRef<HTMLDivElement>(null);
 
@@ -25,16 +27,16 @@ export default function ScrollReveal({
     }, { threshold: 0.02, rootMargin: '0px 0px -8% 0px' });
 
     observer.observe(element);
-    const revealFallback = window.setTimeout(() => {
+    const revealFallback = waitForIntersection ? undefined : window.setTimeout(() => {
       element.classList.add('is-visible');
       observer.disconnect();
     }, 2_500);
 
     return () => {
       observer.disconnect();
-      window.clearTimeout(revealFallback);
+      if (revealFallback !== undefined) window.clearTimeout(revealFallback);
     };
-  }, []);
+  }, [waitForIntersection]);
 
   return <div ref={elementRef} className={className}>{children}</div>;
 }

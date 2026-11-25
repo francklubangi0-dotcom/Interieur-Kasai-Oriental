@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
 import { getSupabaseClient, type AudienceRequestStatus } from '../../data/supabase';
 
 const statusLabels: Record<AudienceRequestStatus, string> = {
@@ -59,13 +60,13 @@ export default function AudienceRequestTracking() {
 
   return (
     <section className="audience-tracking-card" aria-label="Consultation du statut d’une demande">
-      {!supabase ? (
+      {!supabase && (
         <p className="audience-form__error" role="alert">
-          Le service de suivi n’est pas encore configuré. Veuillez réessayer ultérieurement.
+          Le suivi en ligne n’est pas encore disponible. <Link href="/contact">Contactez le Ministère</Link> pour vous renseigner.
         </p>
-      ) : (
-        <>
-          <form onSubmit={lookup}>
+      )}
+      <form onSubmit={lookup}>
+        <fieldset disabled={!supabase} className="audience-form__fields">
             <label className="audience-form-grid__wide">
               Numéro de suivi
               <input
@@ -83,14 +84,13 @@ export default function AudienceRequestTracking() {
                 {loading ? 'Recherche…' : 'Consulter le statut'}
               </button>
             </div>
-          </form>
-          {status && (
-            <div className="audience-status-result" role="status" aria-live="polite">
-              <strong>{statusLabels[status]}</strong>
-              <span>Dernière mise à jour : <time dateTime={updatedAt}>{new Date(updatedAt).toLocaleString('fr-CD')}</time></span>
-            </div>
-          )}
-        </>
+        </fieldset>
+      </form>
+      {status && (
+        <div className="audience-status-result" role="status" aria-live="polite">
+          <strong>{statusLabels[status]}</strong>
+          <span>Dernière mise à jour : <time dateTime={updatedAt}>{new Date(updatedAt).toLocaleString('fr-CD')}</time></span>
+        </div>
       )}
     </section>
   );
